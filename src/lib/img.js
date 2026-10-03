@@ -1,8 +1,12 @@
-// Resolve public/ asset URLs against the Vite base (works at "/" and sub-paths like "/repo/").
+// Resolve public/ asset URLs. Always root-absolute so SPA routes
+// (/search, /courses/:slug) resolve correctly on Vercel/Netlify.
 export function asset(p = '') {
+  const raw = String(p || '')
+  if (/^(https?:|data:|blob:)/.test(raw)) return raw
+  const clean = raw.replace(/^\/+/, '')
   const base = import.meta.env.BASE_URL || '/'
-  const clean = String(p).replace(/^\/+/, '')
-  if (/^(https?:|data:|blob:)/.test(clean)) return p
-  if (base.endsWith('/')) return `${base}${clean}`
-  return `${base}/${clean}`
+  // Relative build base ('./') -> treat as site root.
+  if (base.startsWith('.')) return `/${clean}`
+  const norm = base.endsWith('/') ? base : `${base}/`
+  return `${norm}${clean}`
 }

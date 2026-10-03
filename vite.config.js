@@ -3,8 +3,8 @@ import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // Use relative asset URLs so the build works at "/" and sub-paths (e.g. GitHub Pages).
-  // Hosts that serve from root are unaffected. Override with --base=/repo-name/ if needed.
-  base: './',
+  // Root absolute base: Vercel/Netlify serve from "/".
+  // For GitHub Pages project pages, rebuild with --base=/bytespace-new/
+  base: '/',
   plugins: [react()],
 })
