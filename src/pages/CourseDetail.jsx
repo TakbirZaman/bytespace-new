@@ -85,7 +85,6 @@ export default function CourseDetail() {
           </div>
           <div className="detail-cover" style={thumbStyle(course.hue)}>
             <img src={images.courseCover} alt={`${course.title} preview`} loading="lazy" onError={e => { e.currentTarget.remove() }} />
-            <button className="play-btn" aria-label="Play course preview"><PlayIcon /></button>
           </div>
         </div>
       </section>

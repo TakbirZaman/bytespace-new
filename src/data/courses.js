@@ -35,7 +35,7 @@ export const creators = {
 
 export const images = {
   heroStudent: '/images/hero-student.jpg',
-  courseCover: '/images/course-cover.jpg',
+  courseCover: '/images/course-preview.jpg',
   growthStudent: '/images/growth-student.jpg',
   manageCreator: '/images/manage-creator.jpg',
   avatars: ['/images/avatar-1.jpg', '/images/avatar-2.jpg', '/images/avatar-3.jpg'],

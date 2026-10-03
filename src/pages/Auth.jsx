@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import CourseCard from '../components/CourseCard'
-import { StarIcon } from '../components/icons'
-import { courses, images } from '../data/courses'
 import { setSession } from '../lib/store'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -57,15 +54,7 @@ function Shell({ eyebrow, title, promoTitle, promoText, fields, cta, switchText,
         <div className="auth-promo">
           <h2>{promoTitle}</h2>
           <p>{promoText}</p>
-            <div className="auth-collage">
-              <div className="collage-a"><CourseCard course={courses[1]} /></div>
-              <div className="collage-b"><CourseCard course={courses[3]} /></div>
-              <div className="float-card lime-card">
-                <div style={{ fontSize: 16, fontWeight: 500 }}>Happy Students</div>
-                <div style={{ fontSize: 10, fontWeight: 700 }}>4.8 (12,400) <StarIcon size={10} /></div>
-                <div className="avatars" style={{ marginTop: 8 }}>{images.avatars.map(src => <img key={src} src={src} alt="" loading="lazy" onError={e => { e.currentTarget.remove() }} />)}<b className="dark">2K+</b></div>
-              </div>
-            </div>
+            <img className="auth-promo-img" src="/images/auth-promo.jpg" alt="ByteSpace course cards with happy student reviews" loading="lazy" onError={e => { e.currentTarget.remove() }} />
         </div>
         <div className="auth-card-spec">
           <form className="auth-top" onSubmit={submit} noValidate>
