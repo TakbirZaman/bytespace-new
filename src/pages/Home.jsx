@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import CourseCard from '../components/CourseCard'
 import { SearchIcon, StarIcon } from '../components/icons'
 import { courses, allCategories, images } from '../data/courses'
+import { asset } from '../lib/img'
 
 const tabRows = [
   ['Featured', 'Design', 'Development', 'Marketing', 'Data'],
@@ -14,9 +15,9 @@ const pathCards = ['Design', 'Development', 'Business', 'Marketing', 'Data', 'Ph
 const partners = ['Northwind', 'Acme Corp', 'Lumina', 'Vertex Labs', 'Craftly']
 
 const testimonials = [
-  { name: 'Sarah M.', role: 'Enthusiastic Learner', img: '/images/avatar-1.jpg', text: '\u201CByteSpace has transformed my approach to learning. The diverse range of courses and the quality of content provided by creators have exceeded my expectations. The platform truly fosters a sense of community and lifelong learning.\u201D' },
-  { name: 'James L.', role: 'Lifelong Learner', img: '/images/avatar-2.jpg', text: '\u201CI\u2019ve tried several online learning platforms, and ByteSpace stands out for its vibrant community and the variety of courses available. The easy navigation and engaging content make it a go-to platform for continuous skill development.\u201D' },
-  { name: 'Alex B.', role: 'Inspired Creator', img: '/images/avatar-3.jpg', text: '\u201CAs a creator, ByteSpace has been a game-changer for me. The Course Editor is user-friendly, and the support from the community is incredible. It\u2019s fulfilling to see my courses making a positive impact on learners globally.\u201D' },
+  { name: 'Sarah M.', role: 'Enthusiastic Learner', img: asset('images/avatar-1.jpg'), text: '\u201CByteSpace has transformed my approach to learning. The diverse range of courses and the quality of content provided by creators have exceeded my expectations. The platform truly fosters a sense of community and lifelong learning.\u201D' },
+  { name: 'James L.', role: 'Lifelong Learner', img: asset('images/avatar-2.jpg'), text: '\u201CI\u2019ve tried several online learning platforms, and ByteSpace stands out for its vibrant community and the variety of courses available. The easy navigation and engaging content make it a go-to platform for continuous skill development.\u201D' },
+  { name: 'Alex B.', role: 'Inspired Creator', img: asset('images/avatar-3.jpg'), text: '\u201CAs a creator, ByteSpace has been a game-changer for me. The Course Editor is user-friendly, and the support from the community is incredible. It\u2019s fulfilling to see my courses making a positive impact on learners globally.\u201D' },
 ]
 
 export default function Home() {

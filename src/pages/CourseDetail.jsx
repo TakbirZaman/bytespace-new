@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { courses, thumbStyle, images } from '../data/courses'
+import { asset } from '../lib/img'
 import { PlayIcon, StarIcon, CheckIcon, UsersIcon, ShareIcon, ClockIcon, BookIcon, AwardIcon, MailIcon } from '../components/icons'
 import { isEnrolled, toggleEnrollment } from '../lib/store'
 import NotFound from './NotFound'
@@ -29,10 +30,10 @@ const ratingRows = [
 ]
 
 const reviews = [
-  { name: 'PurePearl Studio', role: 'UI/UX Designer', when: 'a year ago', img: '/images/reviewer-1.jpg', text: '\u201CThe course provided me with a comprehensive understanding of digital asset creation. The lessons were in-depth, practical, and immediately applicable to my work. Highly recommended!\u201D' },
-  { name: 'Albert Flores', role: 'UI/UX Designer', when: 'a year ago', img: '/images/reviewer-2.jpg', text: 'This course transformed my approach to digital design. The combination of theory, hands-on exercises, and real-world applications made it a truly enriching experience. Excited to implement what I\u2019ve learned!' },
-  { name: 'Cody Fisher', role: 'UI/UX Designer', when: 'a year ago', img: '/images/reviewer-3.jpg', text: 'The project showcase and critique module created a collaborative environment where I could showcase my work, receive valuable feedback, and refine my skills. It added a unique and valuable dimension to the learning process.' },
-  { name: 'Brooklyn Simmons', role: 'UI/UX Designer', when: 'a year ago', img: '/images/reviewer-4.jpg', text: 'The lessons on optimizing digital assets for various platforms were particularly insightful. The course adapts to the evolving digital landscape, and the engaging content kept me motivated throughout.' },
+  { name: 'PurePearl Studio', role: 'UI/UX Designer', when: 'a year ago', img: asset('images/reviewer-1.jpg'), text: '\u201CThe course provided me with a comprehensive understanding of digital asset creation. The lessons were in-depth, practical, and immediately applicable to my work. Highly recommended!\u201D' },
+  { name: 'Albert Flores', role: 'UI/UX Designer', when: 'a year ago', img: asset('images/reviewer-2.jpg'), text: 'This course transformed my approach to digital design. The combination of theory, hands-on exercises, and real-world applications made it a truly enriching experience. Excited to implement what I\u2019ve learned!' },
+  { name: 'Cody Fisher', role: 'UI/UX Designer', when: 'a year ago', img: asset('images/reviewer-3.jpg'), text: 'The project showcase and critique module created a collaborative environment where I could showcase my work, receive valuable feedback, and refine my skills. It added a unique and valuable dimension to the learning process.' },
+  { name: 'Brooklyn Simmons', role: 'UI/UX Designer', when: 'a year ago', img: asset('images/reviewer-4.jpg'), text: 'The lessons on optimizing digital assets for various platforms were particularly insightful. The course adapts to the evolving digital landscape, and the engaging content kept me motivated throughout.' },
 ]
 
 const keyPoints = [

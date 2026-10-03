@@ -32,8 +32,11 @@ function Chrome() {
 }
 
 export default function App() {
+  const rawBase = import.meta.env.BASE_URL || '/'
+  // './' (relative build) -> '/' for the router; '/repo/' -> '/repo'
+  const basename = rawBase.startsWith('.') ? '/' : rawBase.replace(/\/$/, '') || '/'
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Chrome />
     </BrowserRouter>
   )
