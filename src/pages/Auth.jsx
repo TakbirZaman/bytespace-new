@@ -1,9 +1,15 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import CourseCard from '../components/CourseCard'
-import { courses } from '../data/courses'
+import { StarIcon } from '../components/icons'
+import { courses, images } from '../data/courses'
+import { setSession } from '../lib/store'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+function slugId(label) {
+  return `auth-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+}
 
 function validate(values, fields) {
   const errors = {}
@@ -20,6 +26,15 @@ function Shell({ eyebrow, title, promoTitle, promoText, fields, cta, switchText,
   const [values, setValues] = useState({})
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle') // idle | loading | done
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    let t
+    if (status === 'done') {
+      t = setTimeout(() => navigate('/search'), 900)
+    }
+    return () => clearTimeout(t)
+  }, [status, navigate])
 
   function submit(e) {
     e.preventDefault()
@@ -27,8 +42,13 @@ function Shell({ eyebrow, title, promoTitle, promoText, fields, cta, switchText,
     setErrors(errs)
     if (Object.keys(errs).length > 0) return
     setStatus('loading')
-    // Fake submit — no backend (see README)
-    setTimeout(() => setStatus('done'), 1200)
+    // Demo auth — persist session locally, no backend (see README)
+    setTimeout(() => {
+      const email = (values.Email ?? '').trim()
+      setSession({ email, name: (values['Full Name'] ?? email.split('@')[0] ?? '').trim() })
+      window.dispatchEvent(new Event('bytespace:auth'))
+      setStatus('done')
+    }, 800)
   }
 
   return (
@@ -37,15 +57,15 @@ function Shell({ eyebrow, title, promoTitle, promoText, fields, cta, switchText,
         <div className="auth-promo">
           <h2>{promoTitle}</h2>
           <p>{promoText}</p>
-          <div className="auth-collage">
-            <div className="collage-a"><CourseCard course={courses[1]} /></div>
-            <div className="collage-b"><CourseCard course={courses[2]} /></div>
-            <div className="float-card lime-card">
-              <div style={{ fontSize: 16, fontWeight: 500 }}>Happy Students</div>
-              <div style={{ fontSize: 10, fontWeight: 700 }}>4.5 (240) ★</div>
-              <div className="avatars" style={{ marginTop: 8 }}><i /><i /><i /><i /><i /><i /><b className="dark">2K+</b></div>
+            <div className="auth-collage">
+              <div className="collage-a"><CourseCard course={courses[1]} /></div>
+              <div className="collage-b"><CourseCard course={courses[3]} /></div>
+              <div className="float-card lime-card">
+                <div style={{ fontSize: 16, fontWeight: 500 }}>Happy Students</div>
+                <div style={{ fontSize: 10, fontWeight: 700 }}>4.8 (12,400) <StarIcon size={10} /></div>
+                <div className="avatars" style={{ marginTop: 8 }}>{images.avatars.map(src => <img key={src} src={src} alt="" loading="lazy" onError={e => { e.currentTarget.remove() }} />)}<b className="dark">2K+</b></div>
+              </div>
             </div>
-          </div>
         </div>
         <div className="auth-card-spec">
           <form className="auth-top" onSubmit={submit} noValidate>
@@ -56,16 +76,18 @@ function Shell({ eyebrow, title, promoTitle, promoText, fields, cta, switchText,
             <div className="afields">
               {fields.map(f => (
                 <div className="afield" key={f.label}>
-                  <label htmlFor={`auth-${f.label}`}>{f.label}</label>
+                  <label htmlFor={slugId(f.label)}>{f.label}</label>
                   <input
-                    id={`auth-${f.label}`}
+                    id={slugId(f.label)}
                     type={f.type ?? 'text'}
                     placeholder={f.placeholder}
+                    autoComplete={f.type === 'password' ? 'current-password' : f.type === 'email' ? 'email' : 'name'}
                     value={values[f.label] ?? ''}
                     onChange={e => setValues(v => ({ ...v, [f.label]: e.target.value }))}
                     aria-invalid={Boolean(errors[f.label])}
+                    aria-describedby={errors[f.label] ? `${slugId(f.label)}-err` : undefined}
                   />
-                  {errors[f.label] && <span className="aerror">{errors[f.label]}</span>}
+                  {errors[f.label] && <span className="aerror" id={`${slugId(f.label)}-err`}>{errors[f.label]}</span>}
                 </div>
               ))}
               {forgot && <Link to="/login" className="forgot">Forgot password?</Link>}
@@ -74,7 +96,7 @@ function Shell({ eyebrow, title, promoTitle, promoText, fields, cta, switchText,
                   {status === 'loading' ? 'Please wait…' : cta}
                 </button>
               </div>
-              {status === 'done' && <p className="asuccess">Success — this is a frontend-only demo, no account was created.</p>}
+              {status === 'done' && <p className="asuccess">Signed in — redirecting to courses…</p>}
             </div>
           </form>
           <div className="auth-bottom">

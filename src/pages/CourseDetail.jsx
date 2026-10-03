@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { courses } from '../data/courses'
+import { courses, thumbStyle, images } from '../data/courses'
+import { PlayIcon, StarIcon, CheckIcon, UsersIcon, ShareIcon, ClockIcon, BookIcon, AwardIcon, MailIcon } from '../components/icons'
+import { isEnrolled, toggleEnrollment } from '../lib/store'
+import NotFound from './NotFound'
 
 const lessons = [
   { n: '01', name: 'Introduction to Digital Assets', time: '12 mins' },
@@ -26,10 +29,10 @@ const ratingRows = [
 ]
 
 const reviews = [
-  { name: 'PurePearl Studio', role: 'UI/UX Designer', when: 'a year ago', text: '\u201CThe course provided me with a comprehensive understanding of digital asset creation. The lessons were in-depth, practical, and immediately applicable to my work. Highly recommended!\u201D' },
-  { name: 'Albert Flores', role: 'UI/UX Designer', when: 'a year ago', text: 'This course transformed my approach to digital design. The combination of theory, hands-on exercises, and real-world applications made it a truly enriching experience. Excited to implement what I\u2019ve learned!' },
-  { name: 'Cody Fisher', role: 'UI/UX Designer', when: 'a year ago', text: 'The project showcase and critique module created a collaborative environment where I could showcase my work, receive valuable feedback, and refine my skills. It added a unique and valuable dimension to the learning process.' },
-  { name: 'Brooklyn Simmons', role: 'UI/UX Designer', when: 'a year ago', text: 'The lessons on optimizing digital assets for various platforms were particularly insightful. The course adapts to the evolving digital landscape, and the engaging content kept me motivated throughout.' },
+  { name: 'PurePearl Studio', role: 'UI/UX Designer', when: 'a year ago', img: '/images/reviewer-1.jpg', text: '\u201CThe course provided me with a comprehensive understanding of digital asset creation. The lessons were in-depth, practical, and immediately applicable to my work. Highly recommended!\u201D' },
+  { name: 'Albert Flores', role: 'UI/UX Designer', when: 'a year ago', img: '/images/reviewer-2.jpg', text: 'This course transformed my approach to digital design. The combination of theory, hands-on exercises, and real-world applications made it a truly enriching experience. Excited to implement what I\u2019ve learned!' },
+  { name: 'Cody Fisher', role: 'UI/UX Designer', when: 'a year ago', img: '/images/reviewer-3.jpg', text: 'The project showcase and critique module created a collaborative environment where I could showcase my work, receive valuable feedback, and refine my skills. It added a unique and valuable dimension to the learning process.' },
+  { name: 'Brooklyn Simmons', role: 'UI/UX Designer', when: 'a year ago', img: '/images/reviewer-4.jpg', text: 'The lessons on optimizing digital assets for various platforms were particularly insightful. The course adapts to the evolving digital landscape, and the engaging content kept me motivated throughout.' },
 ]
 
 const keyPoints = [
@@ -46,7 +49,27 @@ const keyPoints = [
 export default function CourseDetail() {
   const { slug } = useParams()
   const [tab, setTab] = useState('about')
-  const course = courses.find(c => c.slug === slug) ?? courses[1]
+  const [enrolled, setEnrolled] = useState(() => isEnrolled(slug))
+  const [shared, setShared] = useState(false)
+  const course = courses.find(c => c.slug === slug)
+  if (!course) return <NotFound />
+
+  function onEnroll() {
+    const next = toggleEnrollment(course.slug)
+    setEnrolled(next.includes(course.slug))
+    window.dispatchEvent(new Event('bytespace:enroll'))
+  }
+
+  async function onShare() {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      setShared(true)
+      setTimeout(() => setShared(false), 2000)
+    } catch {
+      setShared(false)
+    }
+  }
+
   return (
     <>
       <section className="hero-blue detail-blue">
@@ -55,13 +78,14 @@ export default function CourseDetail() {
           <div className="detail-sub">Unlock the Power of Digital Creation with Expert Guidance</div>
           <div className="detail-by">by {course.author}</div>
           <div className="detail-pills">
-            <span className="dpill">◫ Intermediate</span>
-            <span className="dpill">★ 4.8 (172 reviews)</span>
-            <span className="dpill">◉ 199 Students</span>
-            <span className="dpill dpill-lime">↗ Share</span>
+            <span className="dpill">{course.level}</span>
+            <span className="dpill"><StarIcon size={15} /> {course.rating} ({course.reviewsCount} reviews)</span>
+            <span className="dpill"><UsersIcon size={15} /> {course.students.toLocaleString()} Students</span>
+            <button type="button" className="dpill dpill-lime" onClick={onShare}><ShareIcon size={15} /> {shared ? 'Link copied' : 'Share'}</button>
           </div>
-          <div className="detail-cover">
-            <button className="play-btn" aria-label="Play preview">▶</button>
+          <div className="detail-cover" style={thumbStyle(course.hue)}>
+            <img src={images.courseCover} alt={`${course.title} preview`} loading="lazy" onError={e => { e.currentTarget.remove() }} />
+            <button className="play-btn" aria-label="Play course preview"><PlayIcon /></button>
           </div>
         </div>
       </section>
@@ -83,11 +107,11 @@ export default function CourseDetail() {
                 <p>Embark on an enlightening exploration into the world of digital creation with our comprehensive course, &ldquo;{course.title}: A Comprehensive Guide.&rdquo; This transformative learning experience invites you to delve deep into the intricacies of crafting impactful digital content. From laying the groundwork with foundational concepts to mastering advanced techniques, this guide is meticulously curated to empower you with the skills essential for navigating the dynamic landscape of digital asset creation.</p>
                 <p>In the initial modules, you&rsquo;ll establish a solid foundation by immersing yourself in the foundational concepts that form the backbone of digital asset creation. Understand the fundamental elements that constitute compelling digital content and gain proficiency in leveraging these elements to communicate effectively in the digital realm.</p>
                 <p>As you progress through the course, you&rsquo;ll ascend to higher levels of expertise, delving into the nuances of design principles that drive impactful creations. Uncover the secrets behind effective visual communication, exploring color theory, typography, and layout strategies that elevate your digital assets to new heights. Engage in hands-on exercises that reinforce your understanding, allowing you to apply these principles in practical scenarios.</p>
-                <h3>Sneak Peak</h3>
-                <div className="sneak-row">{[1, 2, 3, 4].map(i => <div key={i} className="sneak-thumb" />)}</div>
+                <h3>Sneak Peek</h3>
+                <div className="sneak-row">{courses.slice(0, 4).map(c => <div key={c.slug} className="sneak-thumb" style={thumbStyle(c.hue)}><img src={c.image} alt={`${c.title} preview`} loading="lazy" onError={e => { e.currentTarget.remove() }} /></div>)}</div>
                 <h3>Key Points</h3>
                 <ul className="keypoints">
-                  {keyPoints.map(k => <li key={k}><span className="kp-check">✓</span>{k}</li>)}
+                  {keyPoints.map(k => <li key={k}><span className="kp-check"><CheckIcon size={12} /></span>{k}</li>)}
                 </ul>
               </>
             )}
@@ -99,7 +123,7 @@ export default function CourseDetail() {
                 <div className="module-list">
                   {modules.map(m => (
                     <div key={m.title} className="module-row">
-                      <span className="module-icon">▷</span>
+                      <span className="module-icon"><PlayIcon size={24} /></span>
                       <div>
                         <div className="module-title">{m.title}</div>
                         <p>{m.text}</p>
@@ -131,7 +155,7 @@ export default function CourseDetail() {
                     {ratingRows.map(r => (
                       <div key={r.stars} className="rating-row">
                         <div className="rbar"><div className="rfill" style={{ width: `${r.fill}px` }} /></div>
-                        <span className="rstars">★★★★★</span>
+                        <span className="rstars" aria-label={`${r.stars} stars`}><StarIcon size={14} /><StarIcon size={14} /><StarIcon size={14} /><StarIcon size={14} /><StarIcon size={14} /></span>
                         <span className="rcount">{r.count}</span>
                       </div>
                     ))}
@@ -139,20 +163,20 @@ export default function CourseDetail() {
                 </div>
                 <h3>Individual Reviews:</h3>
                 <div className="rev-filters">
-                  <button className="dtab on">All rating</button>
-                  {[5, 4, 3, 2, 1].map(n => <button key={n} className="dtab" style={{ display: 'inline-flex', gap: 4 }}>★ {n}</button>)}
+                  <button className="dtab on">All ratings</button>
+                  {[5, 4, 3, 2, 1].map(n => <button key={n} className="dtab" style={{ display: 'inline-flex', gap: 4, alignItems: 'center' }}><StarIcon size={13} /> {n}</button>)}
                 </div>
                 {reviews.map(r => (
                   <article key={r.name} className="review-card">
                     <div className="rev-head">
                       <div className="rev-who">
-                        <div className="rev-avatar" />
+                        <div className="rev-avatar"><img src={r.img} alt={`Portrait of ${r.name}`} loading="lazy" onError={e => { e.currentTarget.remove() }} /></div>
                         <div>
                           <div className="rev-name">{r.name}</div>
                           <div className="rev-role">{r.role}</div>
                         </div>
                       </div>
-                      <div className="rev-meta"><span className="rstars">★★★★★</span><span>{r.when}</span></div>
+                      <div className="rev-meta"><span className="rstars" aria-label="5 out of 5 stars"><StarIcon size={13} /><StarIcon size={13} /><StarIcon size={13} /><StarIcon size={13} /><StarIcon size={13} /></span><span>{r.when}</span></div>
                     </div>
                     <p>{r.text}</p>
                   </article>
@@ -162,29 +186,29 @@ export default function CourseDetail() {
           </div>
 
           <aside className="enroll-card">
-            <h3>112 Lessons (24 hours)</h3>
+            <h3>{course.lessons} Lessons ({course.duration})</h3>
             <div className="mini-lessons">
               {lessons.map(l => (
                 <div key={l.n} className="lesson-row"><span>{l.n}</span><span className="grow">{l.name}</span><span className="ltime">{l.time}</span></div>
               ))}
             </div>
-            <div style={{ color: '#4B4C53' }}>99 more videos</div>
+            <div style={{ color: '#4B4C53' }}>{Math.max(0, course.lessons - 3)} more lessons</div>
             <p style={{ color: '#4B4C53' }}>Ready to Dive In? Enroll Now and Start Building Your Digital Future!</p>
-            <div className="enroll-price"><strong>$25</strong><span>/lifetime</span></div>
-            <button className="enroll-btn">Enroll Now</button>
-            <h3>This course include</h3>
+            <div className="enroll-price"><strong>${course.price}</strong><span>/lifetime</span></div>
+            <button className="enroll-btn" onClick={onEnroll} aria-pressed={enrolled}>{enrolled ? 'Enrolled — View Courses' : 'Enroll Now'}</button>
+            <h3>This course includes</h3>
             <ul className="includes">
-              <li>▤ Learning Resources</li>
-              <li>▷ Quality Lesson Videos</li>
-              <li>◉ Certificate of Completion</li>
-              <li>✉ Private Consultation</li>
+              <li><BookIcon size={15} /> Learning Resources</li>
+              <li><PlayIcon size={15} /> Quality Lesson Videos</li>
+              <li><AwardIcon size={15} /> Certificate of Completion</li>
+              <li><MailIcon size={15} /> Private Consultation</li>
             </ul>
             <hr />
             <div className="instructor">
-              <div className="inst-avatar" />
-              <div><div className="inst-name">PurePearl Studio</div><div className="inst-role">Professional Creator</div></div>
+              <div className="inst-avatar"><img src={images.avatars[0]} alt={`Portrait of ${course.author}`} loading="lazy" onError={e => { e.currentTarget.remove() }} /></div>
+              <div><div className="inst-name">{course.author}</div><div className="inst-role">Professional Creator</div></div>
             </div>
-            <p style={{ color: '#4B4C53' }}>Ready to Dive In? Enroll Now and Start Building Your Digital Future!</p>
+            <p style={{ color: '#4B4C53' }}><ClockIcon size={13} /> {course.students.toLocaleString()} students enrolled · <StarIcon size={13} /> {course.rating}</p>
             <Link to="/creator" className="profile-btn">See Full Profile</Link>
           </aside>
         </div>

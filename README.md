@@ -42,5 +42,5 @@ npm run lint     # oxlint
 ## Notes and assumptions
 
 - Auth submit is **frontend only** (custom validation: required fields, email format, 8-char passwords; loading state; no backend). Guideline asked for a confirm-password field on Register, but the Figma frame has only Full Name / Email / Password, so Figma won.
-- Course thumbnails, avatars and person photos are CSS gradient placeholders — export real PNGs from Figma into `public/images/` to replace `.cc-thumb`, `.hero-person`, `.detail-cover`, etc.
+- Course thumbnails, avatars and person photos live in `public/images/` — overwrite the files there with Figma exports to swap them.
 - Reviewer checklist: real components per section (`src/components`, `src/pages`, `src/data`), semantic tags, alt/aria labels, responsive at 375/768/1024/1440, `npm run lint` + `npm run build` green.

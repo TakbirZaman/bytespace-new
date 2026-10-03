@@ -1,8 +1,58 @@
-export const courses = [
-  { slug: 'learn-figma-basic', title: 'Learn Figma from Basic', author: 'purepearl studio', category: 'Design', price: 25, rating: '4.5', lessons: 17, duration: '2 hours 16 mins', comments: 59, level: 'Beginner' },
-  { slug: 'build-digital-asset', title: 'Build Digital Asset', author: 'purepearl studio', category: 'Crypto', price: 25, rating: '4.5', lessons: 17, duration: '2 hours 16 mins', comments: 59, level: 'Beginner' },
-  { slug: 'power-of-big-data', title: 'the Power of Big Data', author: 'purepearl studio', category: 'Data', price: 25, rating: '4.5', lessons: 17, duration: '2 hours 16 mins', comments: 59, level: 'Beginner' },
-  { slug: 'balancing-productivity', title: 'Balancing Productivity and Self-Care', author: 'purepearl studio', category: 'Business', price: 25, rating: '4.5', lessons: 17, duration: '2 hours 16 mins', comments: 59, level: 'Beginner' },
-  { slug: 'mastering-money', title: 'Mastering Money Management', author: 'purepearl studio', category: 'Finance', price: 25, rating: '4.5', lessons: 17, duration: '2 hours 16 mins', comments: 59, level: 'Beginner' },
-  { slug: 'ideas-to-startup', title: 'From Idea to Startup Success', author: 'purepearl studio', category: 'Business', price: 25, rating: '4.5', lessons: 17, duration: '2 hours 16 mins', comments: 59, level: 'Beginner' },
+export const levels = ['Beginner', 'Intermediate', 'Advanced']
+
+export const allCategories = [
+  'Design',
+  'Development',
+  'Business',
+  'Marketing',
+  'Data',
+  'Photography',
+  'Music',
+  'Finance',
 ]
+
+export const courses = [
+  { slug: 'figma-interface-foundations', title: 'Figma Interface Foundations', author: 'PurePearl Studio', creator: 'PurePearl Studio', category: 'Design', price: 25, rating: '4.8', reviewsCount: 342, students: 4820, lessons: 24, duration: '3 hours 10 mins', comments: 86, level: 'Beginner', hue: 222, image: '/images/courses/figma-interface-foundations.jpg' },
+  { slug: 'design-systems-in-practice', title: 'Design Systems in Practice', author: 'Mara Voss', creator: 'Mara Voss', category: 'Design', price: 39, rating: '4.9', reviewsCount: 518, students: 7310, lessons: 32, duration: '5 hours 5 mins', comments: 143, level: 'Intermediate', hue: 262, image: '/images/courses/design-systems-in-practice.jpg' },
+  { slug: 'react-from-components-to-hooks', title: 'React: Components to Hooks', author: 'Devon Akter', creator: 'Devon Akter', category: 'Development', price: 45, rating: '4.7', reviewsCount: 891, students: 12400, lessons: 48, duration: '8 hours 20 mins', comments: 231, level: 'Intermediate', hue: 210, image: '/images/courses/react-from-components-to-hooks.jpg' },
+  { slug: 'python-data-analysis-bootcamp', title: 'Python Data Analysis Bootcamp', author: 'Lena Okafor', creator: 'Lena Okafor', category: 'Data', price: 49, rating: '4.8', reviewsCount: 664, students: 9800, lessons: 56, duration: '10 hours 45 mins', comments: 198, level: 'Beginner', hue: 160, image: '/images/courses/python-data-analysis-bootcamp.jpg' },
+  { slug: 'startup-finance-essentials', title: 'Startup Finance Essentials', author: 'Marcus Reid', creator: 'Marcus Reid', category: 'Finance', price: 35, rating: '4.6', reviewsCount: 214, students: 3210, lessons: 21, duration: '3 hours 40 mins', comments: 59, level: 'Beginner', hue: 42, image: '/images/courses/startup-finance-essentials.jpg' },
+  { slug: 'brand-storytelling-that-sells', title: 'Brand Storytelling That Sells', author: 'PurePearl Studio', creator: 'PurePearl Studio', category: 'Marketing', price: 29, rating: '4.7', reviewsCount: 187, students: 4150, lessons: 18, duration: '2 hours 50 mins', comments: 74, level: 'Beginner', hue: 330, image: '/images/courses/brand-storytelling-that-sells.jpg' },
+  { slug: 'product-photography-masterclass', title: 'Product Photography Masterclass', author: 'Jonas Feld', creator: 'Jonas Feld', category: 'Photography', price: 42, rating: '4.8', reviewsCount: 296, students: 5280, lessons: 27, duration: '4 hours 15 mins', comments: 112, level: 'Intermediate', hue: 20, image: '/images/courses/product-photography-masterclass.jpg' },
+  { slug: 'freelance-business-playbook', title: 'Freelance Business Playbook', author: 'Aisha Bello', creator: 'Aisha Bello', category: 'Business', price: 33, rating: '4.6', reviewsCount: 158, students: 2870, lessons: 22, duration: '3 hours 25 mins', comments: 61, level: 'Beginner', hue: 90, image: '/images/courses/freelance-business-playbook.jpg' },
+  { slug: 'sql-for-product-analytics', title: 'SQL for Product Analytics', author: 'Lena Okafor', creator: 'Lena Okafor', category: 'Data', price: 38, rating: '4.9', reviewsCount: 402, students: 6940, lessons: 30, duration: '5 hours 30 mins', comments: 129, level: 'Intermediate', hue: 190, image: '/images/courses/sql-for-product-analytics.jpg' },
+  { slug: 'motion-design-with-after-effects', title: 'Motion Design with After Effects', author: 'Mara Voss', creator: 'Mara Voss', category: 'Design', price: 55, rating: '4.7', reviewsCount: 243, students: 3690, lessons: 36, duration: '6 hours 40 mins', comments: 97, level: 'Advanced', hue: 280, image: '/images/courses/motion-design-with-after-effects.jpg' },
+  { slug: 'music-production-fundamentals', title: 'Music Production Fundamentals', author: 'Theo Lindqvist', creator: 'Theo Lindqvist', category: 'Music', price: 31, rating: '4.5', reviewsCount: 131, students: 2140, lessons: 19, duration: '3 hours 5 mins', comments: 48, level: 'Beginner', hue: 350, image: '/images/courses/music-production-fundamentals.jpg' },
+  { slug: 'advanced-react-performance', title: 'Advanced React Performance', author: 'Devon Akter', creator: 'Devon Akter', category: 'Development', price: 59, rating: '4.8', reviewsCount: 327, students: 4460, lessons: 28, duration: '5 hours 55 mins', comments: 104, level: 'Advanced', hue: 232, image: '/images/courses/advanced-react-performance.jpg' },
+]
+
+export const creators = {
+  'PurePearl Studio': { name: 'PurePearl Studio', tagline: 'Passionate UI/UX, Web designer', followers: 12400, products: 3, image: '/images/creator-purepearl.jpg' },
+  'Mara Voss': { name: 'Mara Voss', tagline: 'Design systems lead, ex-fintech', followers: 8200, products: 2, image: '/images/avatar-3.jpg' },
+  'Devon Akter': { name: 'Devon Akter', tagline: 'Full-stack engineer & educator', followers: 15300, products: 2, image: '/images/avatar-2.jpg' },
+  'Lena Okafor': { name: 'Lena Okafor', tagline: 'Data analyst, Python instructor', followers: 9700, products: 2, image: '/images/avatar-1.jpg' },
+}
+
+export const images = {
+  heroStudent: '/images/hero-student.jpg',
+  courseCover: '/images/course-cover.jpg',
+  growthStudent: '/images/growth-student.jpg',
+  manageCreator: '/images/manage-creator.jpg',
+  avatars: ['/images/avatar-1.jpg', '/images/avatar-2.jpg', '/images/avatar-3.jpg'],
+  reviewers: ['/images/reviewer-1.jpg', '/images/reviewer-2.jpg', '/images/reviewer-3.jpg', '/images/reviewer-4.jpg'],
+}
+
+export function thumbStyle(hue = 222) {
+  return {
+    background: `linear-gradient(135deg, hsl(${hue} 85% 58%), hsl(${(hue + 30) % 360} 80% 72%) 55%, hsl(${(hue + 70) % 360} 95% 62%) 130%)`,
+  }
+}
+
+export function initials(name = '') {
+  return name
+    .split(/\s+/)
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase()
+}
