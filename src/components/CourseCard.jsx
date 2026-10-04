@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { thumbStyle, images } from '../data/courses'
+import { images } from '../data/courses'
 import { StarIcon, LevelIcon, ClockIcon, ChatIcon, BookIcon } from './icons'
 import { isEnrolled } from '../lib/store'
 
@@ -8,7 +8,7 @@ export default function CourseCard({ course }) {
   return (
     <article className="course-card">
       <div className="cc-media">
-        <div className="cc-thumb" style={thumbStyle(course.hue)}>
+        <div className="cc-thumb">
           <img src={course.image} alt={`${course.title} course cover`} loading="lazy" onError={e => { e.currentTarget.remove() }} />
         </div>
         <div className="cc-overlays">

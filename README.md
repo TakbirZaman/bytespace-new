@@ -2,14 +2,16 @@
 
 Pixel-faithful implementation of the **ByteSpace New Check website** Figma design (Home, Search, Course Details/Lessons/Reviews, Creator Profile, Login, Register, 404).
 
+**Live demo:** https://bytespace-lime-phi.vercel.app
+
+![ByteSpace home page](docs/bytespace-home.png)
+
 ## Stack
 
-- React 19 + Vite (JavaScript, no TypeScript — see note below)
+- React 19 + Vite (JavaScript)
 - react-router-dom (client routing)
-- Plain CSS with Figma design tokens (no Tailwind — see note below)
+- Plain CSS with Figma design tokens
 - Fonts: Poppins (headings), Satoshi + Clash Display via Fontshare/Google Fonts
-
-> Note: the brief suggested Next.js + TypeScript + Tailwind, but the project was already built pixel-to-spec in React + Vite + CSS before that brief arrived, so we stayed on Vite to keep the exact Figma measurements. All pages, tokens and responsive behavior from the brief are implemented here.
 
 ## How to run
 
@@ -32,6 +34,13 @@ npm run lint     # oxlint
 | `/login`, `/register` | Bonus auth pages with frontend-only validation + fake submit |
 | any other | 404 (gradient giant + Back to Home) |
 
+## Project structure
+
+- `src/components` — shared interface components
+- `src/pages` — route-level screens
+- `src/data` — course, creator, and image data
+- `public/images` — images served as static assets
+
 ## Design tokens (`src/index.css`)
 
 - Blue: Persian Blue/800 `#003BE2` (120px grid @12% on blue frames)
@@ -42,5 +51,5 @@ npm run lint     # oxlint
 ## Notes and assumptions
 
 - Auth submit is **frontend only** (custom validation: required fields, email format, 8-char passwords; loading state; no backend). Guideline asked for a confirm-password field on Register, but the Figma frame has only Full Name / Email / Password, so Figma won.
-- Course thumbnails, avatars and person photos live in `public/images/` — overwrite the files there with Figma exports to swap them.
-- Reviewer checklist: real components per section (`src/components`, `src/pages`, `src/data`), semantic tags, alt/aria labels, responsive at 375/768/1024/1440, `npm run lint` + `npm run build` green.
+- Images live in `public/images/` and are referenced from `src/data` and the components.
+- Reviewer checklist: componentized sections, semantic tags, alt/aria labels, responsive at 375/768/1024/1440, `npm run lint` and `npm run build` pass.

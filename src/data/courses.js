@@ -44,12 +44,6 @@ export const images = {
   reviewers: [asset('images/reviewer-1.jpg'), asset('images/reviewer-2.jpg'), asset('images/reviewer-3.jpg'), asset('images/reviewer-4.jpg')],
 }
 
-export function thumbStyle(hue = 222) {
-  return {
-    background: `linear-gradient(135deg, hsl(${hue} 85% 58%), hsl(${(hue + 30) % 360} 80% 72%) 55%, hsl(${(hue + 70) % 360} 95% 62%) 130%)`,
-  }
-}
-
 export function initials(name = '') {
   return name
     .split(/\s+/)

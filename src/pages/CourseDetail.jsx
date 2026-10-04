@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { courses, thumbStyle, images } from '../data/courses'
+import { courses, images } from '../data/courses'
 import { asset } from '../lib/img'
 import { PlayIcon, StarIcon, CheckIcon, UsersIcon, ShareIcon, ClockIcon, BookIcon, AwardIcon, MailIcon } from '../components/icons'
 import { isEnrolled, toggleEnrollment } from '../lib/store'
@@ -84,7 +84,7 @@ export default function CourseDetail() {
             <span className="dpill"><UsersIcon size={15} /> {course.students.toLocaleString()} Students</span>
             <button type="button" className="dpill dpill-lime" onClick={onShare}><ShareIcon size={15} /> {shared ? 'Link copied' : 'Share'}</button>
           </div>
-          <div className="detail-cover" style={thumbStyle(course.hue)}>
+          <div className="detail-cover">
             <img src={images.courseCover} alt={`${course.title} preview`} loading="lazy" onError={e => { e.currentTarget.remove() }} />
           </div>
         </div>
@@ -108,7 +108,7 @@ export default function CourseDetail() {
                 <p>In the initial modules, you&rsquo;ll establish a solid foundation by immersing yourself in the foundational concepts that form the backbone of digital asset creation. Understand the fundamental elements that constitute compelling digital content and gain proficiency in leveraging these elements to communicate effectively in the digital realm.</p>
                 <p>As you progress through the course, you&rsquo;ll ascend to higher levels of expertise, delving into the nuances of design principles that drive impactful creations. Uncover the secrets behind effective visual communication, exploring color theory, typography, and layout strategies that elevate your digital assets to new heights. Engage in hands-on exercises that reinforce your understanding, allowing you to apply these principles in practical scenarios.</p>
                 <h3>Sneak Peek</h3>
-                <div className="sneak-row">{courses.slice(0, 4).map(c => <div key={c.slug} className="sneak-thumb" style={thumbStyle(c.hue)}><img src={c.image} alt={`${c.title} preview`} loading="lazy" onError={e => { e.currentTarget.remove() }} /></div>)}</div>
+                <div className="sneak-row">{courses.slice(0, 4).map(c => <div key={c.slug} className="sneak-thumb"><img src={c.image} alt={`${c.title} preview`} loading="lazy" onError={e => { e.currentTarget.remove() }} /></div>)}</div>
                 <h3>Key Points</h3>
                 <ul className="keypoints">
                   {keyPoints.map(k => <li key={k}><span className="kp-check"><CheckIcon size={12} /></span>{k}</li>)}
