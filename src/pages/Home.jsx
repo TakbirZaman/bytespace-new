@@ -166,7 +166,6 @@ export default function Home() {
             <div className="float-card" style={{ width: 258, right: 0, bottom: 60 }}>
               <div style={{ fontSize: 16, fontWeight: 500 }}>Happy Students</div>
               <div style={{ fontSize: 10, fontWeight: 700 }}>4.8 (12,400) <StarIcon size={10} /></div>
-              <div className="avatars" style={{ marginTop: 8 }}>{images.avatars.map(src => <img key={src} src={src} alt="" loading="lazy" onError={e => { e.currentTarget.remove() }} />)}<b>2K+</b></div>
             </div>
           </div>
           <div>
