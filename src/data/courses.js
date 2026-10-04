@@ -39,7 +39,7 @@ export const images = {
   heroStudent: asset('images/hero-student.jpg'),
   courseCover: asset('images/course-preview.jpg'),
   growthStudent: asset('images/growth-student.jpg'),
-  manageCreator: asset('images/manage-creator.jpg'),
+  manageCreator: asset('images/manage-creator.png'),
   avatars: [asset('images/avatar-1.jpg'), asset('images/avatar-2.jpg'), asset('images/avatar-3.jpg')],
   reviewers: [asset('images/reviewer-1.jpg'), asset('images/reviewer-2.jpg'), asset('images/reviewer-3.jpg'), asset('images/reviewer-4.jpg')],
 }
