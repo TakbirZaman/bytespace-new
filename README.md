@@ -1,6 +1,6 @@
 # ByteSpace — Learn Job-Ready Skills
 
-Pixel-faithful implementation of the **ByteSpace New Check website** Figma design (Home, Search, Course Details/Lessons/Reviews, Creator Profile, Login, Register, 404).
+Frontend implementation of the **ByteSpace New Check** Figma design.
 
 **Live demo:** https://bytespace-lime-phi.vercel.app
 
@@ -8,48 +8,35 @@ Pixel-faithful implementation of the **ByteSpace New Check website** Figma desig
 
 ## Stack
 
-- React 19 + Vite (JavaScript)
-- react-router-dom (client routing)
-- Plain CSS with Figma design tokens
-- Fonts: Poppins (headings), Satoshi + Clash Display via Fontshare/Google Fonts
+React 19 + Vite, react-router-dom, plain CSS with Figma design tokens.
+Fonts: Poppins (Google Fonts), Satoshi and Clash Display (Fontshare).
 
-## How to run
+## Run
 
 ```bash
 npm install
-npm run dev      # local dev server
-npm run build    # production build (outputs dist/)
-npm run preview  # preview the production build
-npm run lint     # oxlint
+npm run dev       # dev server
+npm run build     # production build
+npm run lint      # oxlint
 ```
 
 ## Routes
 
 | Route | Page |
 |---|---|
-| `/` | Home (hero, partners, categories, course grid, learning paths, growth, creator CTA, testimonials) |
-| `/search` (`/courses` redirects here) | Find Your Next Course + filters + category tabs + pagination |
-| `/courses/:slug` | Course Details with About / Lesson / Reviews tabs + enroll sidebar |
-| `/creator` | Creator Profile (PurePearl Studio) |
-| `/login`, `/register` | Bonus auth pages with frontend-only validation + fake submit |
-| any other | 404 (gradient giant + Back to Home) |
+| `/` | Home |
+| `/search` | Search with filters and pagination |
+| `/courses/:slug` | Course details (About / Lesson / Reviews) |
+| `/creator` | Creator profile |
+| `/login`, `/register` | Auth pages (frontend-only validation) |
+| any other | 404 |
 
-## Project structure
+## Structure
 
-- `src/components` — shared interface components
-- `src/pages` — route-level screens
-- `src/data` — course, creator, and image data
-- `public/images` — images served as static assets
+`src/components` · `src/pages` · `src/data` · `public/images`
+Design tokens (colors, type, radius) are in `src/index.css`.
 
-## Design tokens (`src/index.css`)
+## Notes
 
-- Blue: Persian Blue/800 `#003BE2` (120px grid @12% on blue frames)
-- Lime: Electric Lime/400 `#D4FB20`, 500 `#CBFC01`
-- Type: Poppins SemiBold headings (72/44/36/20), Satoshi body/labels, Clash Display logo
-- Radius: cards 24px, pills 24–100px; page grid 12 cols, 120px margins
-
-## Notes and assumptions
-
-- Auth submit is **frontend only** (custom validation: required fields, email format, 8-char passwords; loading state; no backend). Guideline asked for a confirm-password field on Register, but the Figma frame has only Full Name / Email / Password, so Figma won.
-- Images live in `public/images/` and are referenced from `src/data` and the components.
-- Reviewer checklist: componentized sections, semantic tags, alt/aria labels, responsive at 375/768/1024/1440, `npm run lint` and `npm run build` pass.
+- Auth is frontend-only: no backend, no confirm-password (the Figma frame has none).
+- Built with Vite rather than Next.js to keep the exact Figma measurements.
